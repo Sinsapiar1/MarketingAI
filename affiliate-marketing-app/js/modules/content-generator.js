@@ -100,4 +100,28 @@ class ContentGenerator {
         
         return (hasQuestion ? 0.3 : 0) + (hasNumber ? 0.3 : 0) + (isShort ? 0.4 : 0);
     }
+
+    analyzeEmotion(content) {
+        // Heurística sencilla: contar emoticones o signos de exclamación
+        const exclamations = (content.match(/!/g) || []).length;
+        return Math.min(exclamations / 5, 1);
+    }
+
+    analyzeClarity(content) {
+        const sentences = content.split(/[\.!?]/).filter(Boolean);
+        const avgLength = content.length / sentences.length;
+        return avgLength < 120 ? 1 : 0.5;
+    }
+
+    analyzeUrgency(content) {
+        const keywords = ['hoy', 'ahora', 'última oportunidad', 'tiempo limitado'];
+        const found = keywords.some((k) => content.toLowerCase().includes(k));
+        return found ? 1 : 0.2;
+    }
+
+    async callAI(apiKey, prompt) {
+        // Placeholder: En producción se llama al backend o servicio AI
+        console.log('Enviando prompt a AI:', prompt);
+        return Promise.resolve(`Contenido generado para prompt: ${prompt.substring(0, 60)}...`);
+    }
 }
