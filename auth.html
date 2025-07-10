@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AffiliatePro – Ingresar o Registrarse</title>
+    <link rel="stylesheet" href="css/auth.css">
+    <!-- Firebase v8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Configuración Firebase -->
+    <script src="js/config.js"></script>
+    <script src="js/theme.js"></script>
+</head>
+<body class="auth-body">
+    <main class="auth-container">
+        <header class="text-center">
+            <h1>Affiliate<span>Pro</span></h1>
+            <p>Impulsa tu marketing de afiliados con IA</p>
+        </header>
+
+        <div class="tabs">
+            <button id="tabLogin" class="tab active">Ingresar</button>
+            <button id="tabRegister" class="tab">Registrarse</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="auth-form">
+            <input type="email" id="loginEmail" placeholder="Email" required>
+            <input type="password" id="loginPassword" placeholder="Contraseña" required>
+            <button type="submit" class="btn btn-primary full">Ingresar</button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="registerForm" class="auth-form hidden">
+            <input type="email" id="registerEmail" placeholder="Email" required>
+            <input type="password" id="registerPassword" placeholder="Contraseña" required>
+            <select id="registerPlan">
+                <option value="free">Free</option>
+                <option value="pro">Pro</option>
+                <option value="agency">Agency</option>
+            </select>
+            <button type="submit" class="btn btn-accent full">Crear Cuenta</button>
+        </form>
+
+        <p id="authMessage" class="auth-message"></p>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script>
+        const authManager = new AuthManager();
+
+        // Tabs switching
+        const tabLogin = document.getElementById('tabLogin');
+        const tabRegister = document.getElementById('tabRegister');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const messageEl = document.getElementById('authMessage');
+
+        tabLogin.addEventListener('click', () => {
+            tabLogin.classList.add('active');
+            tabRegister.classList.remove('active');
+            loginForm.classList.remove('hidden');
+            registerForm.classList.add('hidden');
+            messageEl.textContent = '';
+        });
+
+        tabRegister.addEventListener('click', () => {
+            tabRegister.classList.add('active');
+            tabLogin.classList.remove('active');
+            registerForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+            messageEl.textContent = '';
+        });
+
+        // Login submit
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const { success, error } = await authManager.login(email, password);
+            messageEl.textContent = success ? '¡Bienvenido de nuevo!' : error;
+            if (success) messageEl.classList.add('success');
+        });
+
+        // Register submit
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const plan = document.getElementById('registerPlan').value;
+            const { success, error } = await authManager.register(email, password, plan);
+            messageEl.textContent = success ? 'Cuenta creada, revisa tu correo.' : error;
+            if (success) messageEl.classList.add('success');
+        });
+    </script>
+</body>
+</html>

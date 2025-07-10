@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affiliate Marketing App – Landing</title>
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Firebase v8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Configuración Firebase -->
+    <script src="js/config.js"></script>
+    <script src="js/theme.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container flex space-between align-center">
+            <h1 class="logo">Affiliate<span>Pro</span></h1>
+            <nav class="main-nav">
+                <ul class="flex gap-2">
+                    <li><a href="#features">Características</a></li>
+                    <li><a href="#pricing">Planes</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="auth.html" class="btn btn-primary">Ingresar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container text-center">
+            <h2>Potencia tus ingresos como afiliado con IA</h2>
+            <p>Analiza productos, genera contenido viral y construye funnels de alto rendimiento – todo desde una sola plataforma.</p>
+            <a href="auth.html" class="btn btn-accent">Comienza Gratis</a>
+        </div>
+    </section>
+
+    <section id="features" class="features-section container grid-3">
+        <article class="feature-card">
+            <h3>Validador de Ofertas</h3>
+            <p>Evalúa la competencia y el potencial de comisión antes de invertir tu tiempo.</p>
+        </article>
+        <article class="feature-card">
+            <h3>Generador de Avatares</h3>
+            <p>Crea perfiles psicográficos detallados para segmentar tu audiencia con precisión.</p>
+        </article>
+        <article class="feature-card">
+            <h3>Funnel Architect</h3>
+            <p>Diseña funnels con drag & drop y obtén métricas predictivas de conversión.</p>
+        </article>
+    </section>
+
+    <section id="pricing" class="pricing-section">
+        <div class="container text-center">
+            <h2>Planes que escalan contigo</h2>
+            <div class="pricing-table grid-3">
+                <div class="plan">
+                    <h4>Free</h4>
+                    <p>Empieza a explorar la plataforma con límites básicos.</p>
+                    <span class="price">$0</span>
+                    <a href="auth.html" class="btn btn-secondary">Crear Cuenta</a>
+                </div>
+                <div class="plan best">
+                    <h4>Pro</h4>
+                    <p>Funcionalidades completas para creadores individuales.</p>
+                    <span class="price">$19/mes</span>
+                    <a href="auth.html" class="btn btn-primary">Empezar</a>
+                </div>
+                <div class="plan">
+                    <h4>Agency</h4>
+                    <p>Para equipos que gestionan múltiples productos y clientes.</p>
+                    <span class="price">$79/mes</span>
+                    <a href="auth.html" class="btn btn-secondary">Contactar Ventas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer text-center">
+        <p>© <span id="year"></span> AffiliatePro – Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
