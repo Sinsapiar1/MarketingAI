@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AffiliatePro – Panel Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="js/config.js"></script>
+</head>
+<body class="admin-body">
+    <header class="admin-header flex space-between align-center container">
+        <h1>Panel Administrativo</h1>
+        <button id="logoutBtn" class="btn small">Salir</button>
+    </header>
+
+    <main class="admin-container container">
+        <section id="usersSection">
+            <h2>Usuarios</h2>
+            <table id="usersTable" class="data-table">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Plan</th>
+                        <th>Rol</th>
+                        <th>Creado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Populado dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="analyticsSection">
+            <h2>Analytics</h2>
+            <canvas id="usersGrowthChart" width="400" height="200"></canvas>
+        </section>
+    </main>
+
+    <!-- JS -->
+    <script src="js/auth.js"></script>
+    <script src="js/modules/admin-panel.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+        // Asegurar que sólo admin pueda acceder
+        firebase.auth().onAuthStateChanged(async user => {
+            if (!user) return window.location.href = 'auth.html';
+            const db = firebase.firestore();
+            const doc = await db.collection('users').doc(user.uid).get();
+            if (!doc.exists || doc.data().role !== 'admin') {
+                return window.location.href = 'dashboard.html';
+            }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            const authM = new AuthManager();
+            authM.logout();
+        });
+    </script>
+</body>
+</html>

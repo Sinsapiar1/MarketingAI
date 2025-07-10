@@ -59,6 +59,30 @@ class AffiliateApp {
         };
         localStorage.setItem('userSettings', JSON.stringify(settings));
     }
+
+    async initFirebase() {
+        // Firebase ya está inicializado en config.js, pero aseguramos auth ref
+        this.auth = firebase.auth();
+        this.db = firebase.firestore();
+        // Listener de usuario
+        this.auth.onAuthStateChanged((user) => {
+            this.state.user = user;
+        });
+    }
+
+    setupRouter() {
+        if (typeof HashRouter !== 'undefined') {
+            new HashRouter();
+        }
+    }
+
+    applyTheme() {
+        document.body.classList.toggle('dark', this.state.theme === 'dark');
+    }
+
+    applyLanguage() {
+        // Placeholder para i18n futuramente
+    }
 }
 
 // Inicializar la app
