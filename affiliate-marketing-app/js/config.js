@@ -23,3 +23,10 @@ if (!firebase.apps.length) {
     }
   }
 }
+
+// Registrar Service Worker para soporte offline
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(console.error);
+  });
+}

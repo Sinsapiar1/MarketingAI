@@ -140,4 +140,53 @@ class AuthManager {
         await this.auth.signOut();
         window.location.href = '/auth.html';
     }
+
+    // Nuevo: enviar email de restablecimiento de contraseña
+    async resetPassword(email) {
+        try {
+            await this.auth.sendPasswordResetEmail(email);
+            return { success: true };
+        } catch (error) {
+            return { success: false, error: error.message };
+        }
+    }
+
+    // Nuevo: inicio de sesión con Google
+    async loginWithGoogle() {
+        try {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            const { user } = await this.auth.signInWithPopup(provider);
+
+            // Crear documento si no existe
+            const ref = this.db.collection('users').doc(user.uid);
+            const doc = await ref.get();
+            if (!doc.exists) {
+                await ref.set({
+                    email: user.email,
+                    plan: 'free',
+                    role: 'user',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    limits: this.getPlanLimits('free'),
+                    usage: {
+                        productsAnalyzed: 0,
+                        contentGenerated: 0,
+                        funnelsCreated: 0
+                    },
+                    settings: {
+                        theme: 'light',
+                        language: 'es',
+                        notifications: true
+                    }
+                });
+            }
+            return { success: true, user };
+        } catch (error) {
+            return { success: false, error: error.message };
+        }
+    }
+}
+
+// Exponer en ámbito global
+if (typeof window !== 'undefined') {
+    window.AuthManager = AuthManager;
 }
