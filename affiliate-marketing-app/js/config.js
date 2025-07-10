@@ -3,13 +3,13 @@
 // Esta información debe mantenerse fuera de control de versiones en producción.
 
 const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
-  projectId: "YOUR_FIREBASE_PROJECT_ID",
-  storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID"
+  apiKey: "AIzaSyAqVGZGdwrvvZoC1trRr8h8TNXrwyugHww",
+  authDomain: "marketingafiliados-c6eec.firebaseapp.com",
+  projectId: "marketingafiliados-c6eec",
+  storageBucket: "marketingafiliados-c6eec.firebasestorage.app",
+  messagingSenderId: "208888972841",
+  appId: "1:208888972841:web:e68d63fffebc2fe578fe38",
+  measurementId: "G-YVQLB05W65"
 };
 
 // Inicializar Firebase sólo una vez
